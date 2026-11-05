@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b1020;
+    --ink: #ffffff;
+    --ink-soft: rgba(255, 255, 255, 0.72);
+    --edge: rgba(255, 255, 255, 0.35);
+    --mx: 50%;
+    --my: 30%;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    padding: 24px;
+  }
+
+  /* Colour the glass has to bend: blobs drift and change shape */
+  .blob {
+    position: fixed;
+    filter: blur(30px);
+    opacity: 0.9;
+    border-radius: 50%;
+    animation: drift 18s ease-in-out infinite alternate, morph 12s ease-in-out infinite alternate;
+  }
+  .b1 { width: 46vmax; height: 46vmax; left: -10vmax; top: -12vmax; background: #ff5fa2; }
+  .b2 { width: 40vmax; height: 40vmax; right: -8vmax; top: 10vmax; background: #4f7cff; animation-duration: 22s, 14s; animation-delay: -6s, -3s; }
+  .b3 { width: 34vmax; height: 34vmax; left: 22vmax; bottom: -14vmax; background: #27e0c0; animation-duration: 26s, 16s; animation-delay: -12s, -8s; }
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1) rotate(0deg); }
+    to   { transform: translate(7vmax, 6vmax) scale(1.14) rotate(25deg); }
+  }
+  @keyframes morph {
+    0%   { border-radius: 50% 50% 50% 50%; }
+    50%  { border-radius: 62% 38% 46% 54% / 48% 60% 40% 52%; }
+    100% { border-radius: 40% 60% 58% 42% / 56% 44% 56% 44%; }
+  }
+
+  /* Rising glass bubbles (created by the script below) */
+  .bubble {
+    position: fixed;
+    bottom: -80px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: radial-gradient(circle at 30% 28%, rgba(255,255,255,0.55), rgba(255,255,255,0.06) 55%);
+    box-shadow: inset 0 0 12px rgba(255,255,255,0.18);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    animation: rise linear infinite;
+    pointer-events: none;
+  }
+  @keyframes rise {
+    0%   { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0; }
+    10%  { opacity: 1; }
+    50%  { transform: translate3d(var(--sway), -55vh, 0) scale(1); }
+    90%  { opacity: 1; }
+    100% { transform: translate3d(calc(var(--sway) * -1), -120vh, 0) scale(1.1); opacity: 0; }
+  }
+
+  /* Panel: enter once, then float forever, then tilt with the pointer */
+  .enter { animation: arrive 1.2s cubic-bezier(.2,.8,.2,1) both; width: min(560px, 100%); position: relative; z-index: 1; }
+  .float { animation: bob 7s ease-in-out infinite; }
+  @keyframes arrive {
+    from { opacity: 0; transform: translateY(30px) scale(0.94); filter: blur(12px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-14px); }
+  }
+
+  .glass {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(44px, 9vw, 84px) clamp(28px, 7vw, 64px);
+    text-align: center;
+    border-radius: 44px;
+    background:
+      radial-gradient(420px circle at var(--mx) var(--my), rgba(255,255,255,0.28), transparent 60%),
+      linear-gradient(135deg, rgba(255,255,255,0.18), rgba(255,255,255,0.04));
+    -webkit-backdrop-filter: blur(26px) saturate(180%) brightness(1.08);
+    backdrop-filter: blur(26px) saturate(180%) brightness(1.08);
+    border: 1px solid var(--edge);
+    box-shadow:
+      inset 0 1.5px 1px rgba(255,255,255,0.65),
+      inset 0 -2px 6px rgba(255,255,255,0.12),
+      inset 0 0 40px rgba(255,255,255,0.06),
+      0 30px 70px rgba(5, 8, 30, 0.45);
+    transition: transform 0.25s ease-out;
+  }
+  /* A band of light that sweeps across the glass */
+  .glass::after {
+    content: "";
+    position: absolute;
+    top: -20%; bottom: -20%; left: 0;
+    width: 40%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,0.28), transparent);
+    transform: translateX(-160%) skewX(-18deg);
+    animation: sweep 6.5s ease-in-out 1.8s infinite;
+    pointer-events: none;
+  }
+  @keyframes sweep {
+    0%   { transform: translateX(-160%) skewX(-18deg); }
+    35%, 100% { transform: translateX(420%) skewX(-18deg); }
+  }
+
+  /* Letters rise and focus one by one */
+  h1 {
+    font-weight: 200;
+    font-size: clamp(2.8rem, 11vw, 5.2rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    text-shadow: 0 2px 24px rgba(255,255,255,0.25);
+  }
+  .ch {
+    display: inline-block;
+    opacity: 0;
+    animation: letter 0.9s cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay: calc(0.7s + var(--i) * 0.08s);
+  }
+  @keyframes letter {
+    from { opacity: 0; transform: translateY(0.6em) scale(0.9); filter: blur(10px); }
+    to   { opacity: 1; transform: none; filter: blur(0); }
+  }
+  p {
+    margin-top: 18px;
+    font-weight: 300;
+    font-size: clamp(1rem, 3.4vw, 1.2rem);
+    color: var(--ink-soft);
+    opacity: 0;
+    animation: fade 1.2s ease-out 1.9s forwards;
+  }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass { background: rgba(30, 36, 70, 0.7); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .blob, .bubble, .enter, .float, .glass::after { animation: none; }
+    .bubble { display: none; }
+    .ch, p { animation: none; opacity: 1; }
+    .glass { transition: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+
+  <div class="enter">
+    <div class="float">
+      <main class="glass" id="glass">
+        <h1 id="title" aria-label="Welcome">Welcome</h1>
+        <p>Glad you stopped by. Make yourself at home.</p>
+      </main>
+    </div>
+  </div>
+
+<script>
+  (function () {
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Split the headline into letters for the staggered reveal
+    var title = document.getElementById("title");
+    var text = title.textContent;
+    title.textContent = "";
+    text.split("").forEach(function (c, i) {
+      var s = document.createElement("span");
+      s.className = "ch";
+      s.setAttribute("aria-hidden", "true");
+      s.style.setProperty("--i", i);
+      s.textContent = c;
+      title.appendChild(s);
+    });
+
+    if (reduce) return;
+
+    // Rising bubbles
+    for (var n = 0; n < 14; n++) {
+      var b = document.createElement("div");
+      var size = 14 + Math.random() * 46;
+      b.className = "bubble";
+      b.style.width = b.style.height = size + "px";
+      b.style.left = Math.random() * 100 + "vw";
+      b.style.animationDuration = 14 + Math.random() * 16 + "s";
+      b.style.animationDelay = -Math.random() * 24 + "s";
+      b.style.setProperty("--sway", (Math.random() * 60 - 30) + "px");
+      document.body.appendChild(b);
+    }
+
+    // The light on the glass follows the pointer, and the panel tilts slightly
+    var glass = document.getElementById("glass");
+    window.addEventListener("pointermove", function (e) {
+      var r = glass.getBoundingClientRect();
+      glass.style.setProperty("--mx", ((e.clientX - r.left) / r.width) * 100 + "%");
+      glass.style.setProperty("--my", ((e.clientY - r.top) / r.height) * 100 + "%");
+      var tx = (e.clientX / window.innerWidth - 0.5) * 8;
+      var ty = (e.clientY / window.innerHeight - 0.5) * -8;
+      glass.style.transform = "perspective(900px) rotateY(" + tx + "deg) rotateX(" + ty + "deg)";
+    });
+  })();
+</script>
+</body>
+</html>
