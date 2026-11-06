@@ -31,7 +31,7 @@ var lang=localStorage.getItem("kl_lang")||"en";
 function t(k,d){return (T[lang]&&T[lang][k])||d}
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function $(s){return document.querySelector(s)}
-var app=$("#app");
+var app=$("#app"),savedSnap="",autoFn=null;
 
 /* ---------- helpers ---------- */
 function sha(s){return crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)).then(function(b){return Array.from(new Uint8Array(b)).map(function(x){return x.toString(16).padStart(2,"0")}).join("")})}
@@ -132,9 +132,14 @@ function admin(){
  root.onclick=function(e){var b=e.target;
   if(b.dataset.add){sync();cfg[b.dataset.add].push(b.dataset.add==="games"?{n:"",u:"",s:"current"}:b.dataset.add==="execs"?{n:"",s:"yellow",w:"",d:""}:{p:"YouTube",t:"",u:""});admin()}
   if(b.dataset.del){sync();var d=b.dataset.del.split(":");cfg[d[0]].splice(+d[1],1);admin()}};
- root.onchange=function(e){if(e.target.dataset.f==="s"){sync();cfg.games.forEach(function(x){if(x.s==="retired")x.u=""});cfg.execs.forEach(function(x){if(x.s==="red"){x.w="";x.d=""}});admin()}};
+ root.onchange=function(e){if(e.target.dataset.f==="s"){sync();cfg.games.forEach(function(x){if(x.s==="retired")x.u=""});cfg.execs.forEach(function(x){if(x.s==="red"){x.w="";x.d=""}});auto(true);admin()}};
+ var msg=$("#ms"),hint=msg.textContent,tm,at;
+ function flash(x,ms){msg.textContent=x;clearTimeout(tm);tm=setTimeout(function(){msg.textContent=hint},ms)}
+ function auto(quiet){sync();var j=JSON.stringify(cfg);if(j!==savedSnap){saveLocal();savedSnap=j;if(!quiet)flash("Auto-saved",1000)}}
+ autoFn=auto;
+ root.oninput=function(e){if(e.target.id==="np")return;clearTimeout(at);at=setTimeout(function(){auto()},800)};
  function prep(cb){sync();var np=$("#np").value;(np?sha(np).then(function(h){cfg.pw=h;$("#np").value=""}):Promise.resolve()).then(cb)}
- $("#sv").onclick=function(){prep(function(){saveLocal();chrome();$("#ms").textContent="Saved in this browser."})};
+ $("#sv").onclick=function(){prep(function(){var j=JSON.stringify(cfg);if(j===savedSnap){flash("Already saved",1000);return}saveLocal();savedSnap=j;chrome();flash("Saved ✓",1500)})};
  $("#cc").onclick=function(){var b=this;prep(function(){var q=JSON.stringify(cfg,null,1),ok=function(){b.textContent="Copied ✓";setTimeout(function(){b.textContent="Copy config.json"},1800)};navigator.clipboard?navigator.clipboard.writeText(q).then(ok,function(){prompt("Copy:",q)}):prompt("Copy:",q)})};
  $("#dl").onclick=function(){prep(function(){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(cfg,null,1)],{type:"application/json"}));a.download="config.json";a.click()})};
  $("#rs").onclick=function(){localStorage.removeItem("kl_cfg");location.reload()};
@@ -148,12 +153,15 @@ var R={"/":dash,"/tutorials":tuts,"/games":games,"/executers":execs,"/getscript"
 function route(){
  var p=location.pathname.replace(/\/index\.html$/,"/").replace(/(.)\/$/,"$1");
  var f=R[p]||dash;
- app.className="";void app.offsetWidth;app.className="page";f();
+ autoFn=null;app.className="";void app.offsetWidth;app.className="page";f();
  document.querySelectorAll(".links a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")===p)});
  $("#links").classList.remove("open");window.scrollTo(0,0);
 }
 document.addEventListener("click",function(e){var a=e.target.closest("a[data-l]");if(a){e.preventDefault();history.pushState(null,"",a.getAttribute("href"));chrome();route()}});
 window.addEventListener("popstate",route);
+window.addEventListener("beforeunload",function(){autoFn&&autoFn(true)});
+window.addEventListener("pagehide",function(){autoFn&&autoFn(true)});
+document.addEventListener("visibilitychange",function(){if(document.hidden&&autoFn)autoFn(true)});
 
 /* ---------- hCaptcha gate ---------- */
 function gate(){
@@ -168,6 +176,6 @@ function gate(){
 fetch("/config.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():{}}).catch(function(){return {}}).then(function(j){
  merge(cfg,j);
  try{var l=JSON.parse(localStorage.getItem("kl_cfg")||"null");if(l)merge(cfg,l)}catch(e){}
- chrome();route();gate();
+ savedSnap=JSON.stringify(cfg);chrome();route();gate();
 });
 })();
