@@ -64,7 +64,8 @@ function dash(){
   var rnd=Math.floor(Math.random()*1e5);
   location.href="https://link-to.net/"+encodeURIComponent(cfg.lvId)+"/"+rnd+"/dynamic?r="+btoa(encodeURI(back));
  };
- var seen=localStorage.kl_v==="1";fetch("https://api.counterapi.dev/v1/kalmin-hub/visits"+(seen?"":"/up")).then(function(r){return r.json()}).then(function(j){if(typeof j.count==="number"){localStorage.kl_v="1";$("#vc").textContent=j.count.toLocaleString()}}).catch(function(){});
+ var seen=localStorage.kl_v==="1";function vis(m){return fetch("https://abacus.jasoncameron.dev/"+m+"/kalmin.kdns.fr/visits").then(function(r){return r.json()})}
+ vis(seen?"get":"hit").then(function(j){if(typeof j.value!=="number")throw 0;localStorage.kl_v="1";$("#vc").textContent=j.value.toLocaleString()}).catch(function(){if(seen)vis("hit").then(function(j){if(typeof j.value==="number")$("#vc").textContent=j.value.toLocaleString()}).catch(function(){})});
  fetch("https://discord.com/api/v9/invites/"+encodeURIComponent(cfg.discordInvite)+"?with_counts=true").then(function(r){return r.json()}).then(function(j){if(j.approximate_member_count)$("#dc").textContent=j.approximate_member_count.toLocaleString()}).catch(function(){});
 }
 function getscript(){
