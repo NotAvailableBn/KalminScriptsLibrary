@@ -29,67 +29,117 @@
  "execs": [
   {
    "n": "Madium (Pc)",
-   "s": "green"
+   "s": "green",
+   "w": "https://getmadium.net/",
+   "d": "https://discord.com/invite/olemad"
   },
   {
    "n": "Real (Pc)",
-   "s": "green"
+   "s": "green",
+   "w": "https://projectreal.gg/",
+   "d": "https://discord.gg/projectreal"
   },
   {
    "n": "Volt (Pc)",
-   "s": "green"
+   "s": "green",
+   "w": "https://volt.rs/",
+   "d": "https://discord.com/invite/voltbz"
   },
   {
    "n": "Velocity (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://getvelocity.llc/",
+   "d": "https://discord.gg/velocityide"
   },
   {
    "n": "Bunni (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "",
+   "d": "https://discord.gg/Zkse9GZkgt"
   },
   {
    "n": "Yub-X (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://yub-x.best/",
+   "d": "https://discord.com/invite/yubx"
   },
   {
    "n": "Lynx (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://getlynx.gg/",
+   "d": "https://discord.com/invite/getlynx"
   },
   {
    "n": "Lucid (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://getlucid.gg/",
+   "d": "https://discord.com/invite/Jup2CS3nE8"
   },
   {
    "n": "Patassium (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://www.potassium.pro/",
+   "d": "https://discord.com/invite/potassium"
   },
   {
    "n": "Xeno (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://www.xeno.now/",
+   "d": "https://discord.com/invite/xe-no"
   },
   {
    "n": "Solara (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://getsolara.dev/",
+   "d": ""
   },
   {
    "n": "Nexomia (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://nexomia.win/en",
+   "d": "https://discord.com/invite/xsEFWcjbab"
   },
   {
    "n": "SirHurt (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://sirhurt.net/",
+   "d": "https://discord.com/invite/sirhurt"
   },
   {
    "n": "Seliware (Pc)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://seliware.com/",
+   "d": "https://discord.com/invite/nzEggEE9vx"
   },
   {
    "n": "Delta (Mobile)",
-   "s": "yellow"
+   "s": "yellow",
+   "w": "https://deltaexploits.gg/",
+   "d": "https://discord.com/invite/deltax"
   },
   {
    "n": "Opiumware (Mac)",
-   "s": "yellow"
+   "s": "green",
+   "w": "",
+   "d": "https://discord.com/invite/opiumware"
+  },
+  {
+   "n": "MacSploit (Mac)",
+   "s": "yellow",
+   "w": "https://www.raptor.fun/",
+   "d": "https://discord.com/invite/macsploit"
+  },
+  {
+   "n": "Wave (Pc)",
+   "s": "yellow",
+   "w": "https://getwave.gg/",
+   "d": "https://discord.com/invite/rARhPpN7fY"
+  },
+  {
+   "n": "Synapse Z (Pc)",
+   "s": "yellow",
+   "w": "https://z.synapse.do/",
+   "d": "https://discord.gg/synz"
   }
  ],
  "tutorials": [],
