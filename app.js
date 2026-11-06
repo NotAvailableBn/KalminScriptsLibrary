@@ -2,7 +2,7 @@
 "use strict";
 /* ---------- default config (override with /config.json or the admin page) ---------- */
 var DEF={
- hcaptcha:"10000000-ffff-ffff-ffff-000000000000", /* test key: replace with your real hCaptcha site key in /adminpg */
+ hcaptcha:"", /* paste your hCaptcha site key here or in /adminpg; empty = captcha gate is skipped */
  script:'loadstring(game:HttpGet("https://kalmin.kdns.fr/script.lua"))()',
  lvId:"10419982",
  verifyUrl:"", /* optional: your server endpoint that checks the Linkvertise hash with the anti-bypass token */
@@ -149,7 +149,7 @@ window.addEventListener("popstate",route);
 
 /* ---------- hCaptcha gate ---------- */
 function gate(){
- if(sessionStorage.kl_h==="1"){$("#gate").remove();return}
+ if(sessionStorage.kl_h==="1"||!cfg.hcaptcha){$("#gate").remove();return}
  var n=0,iv=setInterval(function(){
   if(window.hcaptcha){clearInterval(iv);hcaptcha.render("hc",{sitekey:cfg.hcaptcha,theme:document.documentElement.dataset.theme,callback:function(){sessionStorage.kl_h="1";var g=$("#gate");g.style.transition="opacity .6s";g.style.opacity=0;setTimeout(function(){g.remove()},600)}})}
   else if(++n>100){clearInterval(iv);$("#hc").textContent="Could not load hCaptcha. Disable blockers and refresh."}
