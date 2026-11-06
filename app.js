@@ -64,7 +64,7 @@ function dash(){
   var rnd=Math.floor(Math.random()*1e5);
   location.href="https://link-to.net/"+encodeURIComponent(cfg.lvId)+"/"+rnd+"/dynamic?r="+btoa(encodeURI(back));
  };
- fetch("https://api.counterapi.dev/v1/kalmin-hub/visits/"+(sessionStorage.kl_v?"":"up")).then(function(r){return r.json()}).then(function(j){sessionStorage.kl_v=1;$("#vc").textContent=(j.count||0).toLocaleString()}).catch(function(){});
+ var seen=localStorage.kl_v==="1";fetch("https://api.counterapi.dev/v1/kalmin-hub/visits"+(seen?"":"/up")).then(function(r){return r.json()}).then(function(j){if(typeof j.count==="number"){localStorage.kl_v="1";$("#vc").textContent=j.count.toLocaleString()}}).catch(function(){});
  fetch("https://discord.com/api/v9/invites/"+encodeURIComponent(cfg.discordInvite)+"?with_counts=true").then(function(r){return r.json()}).then(function(j){if(j.approximate_member_count)$("#dc").textContent=j.approximate_member_count.toLocaleString()}).catch(function(){});
 }
 function getscript(){
@@ -74,7 +74,9 @@ function getscript(){
  function deny(m){app.innerHTML='<section class="glass card"><h3 class="t">Checkpoint required</h3><p class="empty">'+m+'</p><a class="btn p" href="/" data-l>Back to Dashboard</a></section>'}
  if(h){
   history.replaceState(null,"","/getscript");
-  if(cfg.verifyUrl){fetch(cfg.verifyUrl+"?hash="+encodeURIComponent(h)).then(function(r){return r.json()}).then(function(j){j.valid||j.status===true?show():deny("Verification failed. Please complete the checkpoint again.")}).catch(function(){deny("Could not verify. Try again.")})}
+  if(cfg.verifyUrl){var u=cfg.verifyUrl.indexOf("{hash}")>-1?cfg.verifyUrl.replace("{hash}",encodeURIComponent(h)):cfg.verifyUrl+(cfg.verifyUrl.indexOf("?")>-1?"&":"?")+"hash="+encodeURIComponent(h);
+   fetch(u).then(function(r){return r.text()}).then(function(x){var v=x.trim(),j=null;try{j=JSON.parse(v)}catch(e){}
+    var bad=/^false$/i.test(v)||(j&&(j.valid===false||j.status===false||j.success===false));bad?deny("Verification failed. Please complete the checkpoint again."):show()}).catch(function(){show()})}
   else show();
  } else if(ok)show(); else deny("Complete the Linkvertise checkpoint from the dashboard to get the script.");
 }
@@ -88,20 +90,22 @@ function tuts(){
 }
 function sec(cls,title,items,fn,empty){return '<div class="sec"><span class="dot '+cls+'"></span>'+title+'</div><div class="list">'+(items.length?items.map(fn).join(""):'<div class="glass row"><span class="empty">'+empty+'</span></div>')+'</div>'}
 function games(){
- var g=cfg.games,row=function(x){return '<div class="glass row"><span>'+esc(x.n)+'</span>'+(x.u?'<a href="'+esc(x.u)+'" target="_blank" rel="noopener">View Game</a>':'')+'</div>'};
+ var g=cfg.games,row=function(x){return '<div class="glass row"><span>'+esc(x.n)+'</span>'+(x.u&&x.s!=="retired"?'<a href="'+esc(x.u)+'" target="_blank" rel="noopener">View Game</a>':'')+'</div>'};
  app.innerHTML='<h3 class="t">Kalmin Supported Games</h3>'+
   sec("green","Current Supported Games",g.filter(function(x){return x.s==="current"}),row,"[Not Available Yet]")+
   sec("black","To Be Supported Soon Games",g.filter(function(x){return x.s==="soon"}),row,"[Not Available Yet]")+
   sec("red","Retired Games",g.filter(function(x){return x.s==="retired"}),row,"[Not Available Yet]");
 }
 function execs(){
- var e=cfg.execs,row=function(x){return '<div class="glass row"><span>'+esc(x.n)+'</span></div>'};
+ var e=cfg.execs,row=function(x){var l=x.s==="red"?"":(x.w?'<a href="'+esc(x.w)+'" target="_blank" rel="noopener">View Website</a>':"")+(x.d?'<a href="'+esc(x.d)+'" target="_blank" rel="noopener">Discord</a>':"");return '<div class="glass row"><span>'+esc(x.n)+'</span><span class="lk">'+l+'</span></div>'};
  app.innerHTML='<h3 class="t">Kalmin Supported Executors</h3>'+
   sec("green","Supported",e.filter(function(x){return x.s==="green"}),row,"[Not Available Yet]")+
   sec("yellow","Unknown",e.filter(function(x){return x.s==="yellow"}),row,"[Not Available Yet]")+
   sec("red","Not Supported",e.filter(function(x){return x.s==="red"}),row,"[Not Available Yet]");
 }
-function doc(k,title){app.innerHTML='<h3 class="t">'+title+'</h3><div class="glass doc">'+esc(cfg[k])+'</div>'}
+function md(s){var x=function(a){return a.replace(/`([^`]+)`/g,"<code>$1</code>").replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/__([^_]+)__/g,"<u>$1</u>").replace(/(^|[^*])\*([^*\n]+)\*/g,"$1<i>$2</i>").replace(/~~([^~]+)~~/g,"<s>$1</s>")};
+ return esc(s).split(/\r?\n/).map(function(l){var m=l.match(/^(#{1,3}) (.*)$/);return m?"<h"+m[1].length+">"+x(m[2])+"</h"+m[1].length+">":l.trim()?"<p>"+x(l)+"</p>":"<br>"}).join("")}
+function doc(k,title){app.innerHTML='<h3 class="t">'+title+'</h3><div class="glass doc">'+md(cfg[k])+'</div>'}
 
 /* ---------- admin ---------- */
 function admin(){
@@ -111,24 +115,28 @@ function admin(){
   $("#li").onclick=go;$("#pw").onkeydown=function(e){if(e.key==="Enter")go()};return;
  }
  var F=function(label,path,area){return '<label>'+label+'</label>'+(area?'<textarea rows="6" data-p="'+path+'">':'<input data-p="'+path+'" value="')+esc(get(path))+(area?'</textarea>':'">')};
- var L=function(title,key,fields,opts){return '<h4>'+title+'</h4><div data-list="'+key+'">'+cfg[key].map(function(x,i){return '<div class="ar">'+fields.map(function(f){return f==="s"?'<select data-i="'+i+'" data-f="s">'+opts.map(function(o){return '<option'+(x.s===o?' selected':'')+'>'+o+'</option>'}).join("")+'</select>':'<input data-i="'+i+'" data-f="'+f+'" value="'+esc(x[f])+'">'}).join("")+'<button data-del="'+key+':'+i+'">✕</button></div>'}).join("")+'</div><button class="btn" data-add="'+key+'">+ Add</button>'};
+ var PH={n:"Name",u:"Game link",w:"Website link",d:"Discord link",p:"Platform",t:"Title"};
+ var L=function(title,key,fields,opts){return '<h4>'+title+'</h4><div data-list="'+key+'">'+cfg[key].map(function(x,i){return '<div class="ar">'+fields.map(function(f){if(f==="s")return '<select data-i="'+i+'" data-f="s">'+opts.map(function(o){return '<option'+(x.s===o?' selected':'')+'>'+o+'</option>'}).join("")+'</select>';var off=(key==="games"&&f==="u"&&x.s==="retired")||(key==="execs"&&(f==="w"||f==="d")&&x.s==="red");return '<input data-i="'+i+'" data-f="'+f+'" placeholder="'+(off?"Disabled for this status":(key==="tutorials"&&f==="u"?"Video link":PH[f]))+'" value="'+(off?"":esc(x[f]))+'"'+(off?" disabled":"")+'>'}).join("")+'<button data-del="'+key+':'+i+'">✕</button></div>'}).join("")+'</div><button class="btn" data-add="'+key+'">+ Add</button>'};
  app.innerHTML='<section class="glass card adm"><h3 class="t">Admin panel</h3>'+
   F("hCaptcha site key","hcaptcha")+F("Script (shown after checkpoint)","script",1)+F("Linkvertise publisher ID","lvId")+F("Verify endpoint (server that checks the anti-bypass token, optional)","verifyUrl")+F("Discord invite code (for member count)","discordInvite")+
   F("Discord link","social.discord")+F("Discord support link","social.support")+F("YouTube link","social.youtube")+
-  L("Games (name · link · current/soon/retired)","games",["n","u","s"],["current","soon","retired"])+
-  L("Executors (name · green/yellow/red)","execs",["n","s"],["green","yellow","red"])+
+  L("Games (name · status · link; retired has no link)","games",["n","s","u"],["current","soon","retired"])+
+  L("Executors (name · status · website · discord; red shows no links)","execs",["n","s","w","d"],["green","yellow","red"])+
   L("Tutorials (platform · title · video link)","tutorials",["p","t","u"])+
   F("Terms of Service","terms",1)+F("Privacy Policy","privacy",1)+
   '<label>New admin password (leave empty to keep)</label><input type="password" id="np">'+
-  '<div class="btns"><button class="btn p" id="sv">Save in this browser</button><button class="btn" id="dl">Download config.json</button><button class="btn" id="rs">Reset local copy</button><button class="btn" id="lo">Logout</button></div>'+
+  '<div class="btns"><button class="btn p" id="sv">Save in this browser</button><button class="btn" id="cc">Copy config.json</button><button class="btn" id="dl">Download config.json</button><button class="btn" id="rs">Reset local copy</button><button class="btn" id="lo">Logout</button></div>'+
   '<p class="empty" id="ms">Visitors only see changes after you upload the downloaded config.json next to index.html.</p></section>';
  var root=app;
  function sync(){root.querySelectorAll("[data-p]").forEach(function(e){set(e.dataset.p,e.value)});root.querySelectorAll("[data-i]").forEach(function(e){var l=e.closest("[data-list]").dataset.list;cfg[l][e.dataset.i][e.dataset.f]=e.value})}
  root.onclick=function(e){var b=e.target;
-  if(b.dataset.add){sync();cfg[b.dataset.add].push(b.dataset.add==="games"?{n:"",u:"",s:"current"}:b.dataset.add==="execs"?{n:"",s:"yellow"}:{p:"YouTube",t:"",u:""});admin()}
+  if(b.dataset.add){sync();cfg[b.dataset.add].push(b.dataset.add==="games"?{n:"",u:"",s:"current"}:b.dataset.add==="execs"?{n:"",s:"yellow",w:"",d:""}:{p:"YouTube",t:"",u:""});admin()}
   if(b.dataset.del){sync();var d=b.dataset.del.split(":");cfg[d[0]].splice(+d[1],1);admin()}};
- $("#sv").onclick=function(){sync();var np=$("#np").value;(np?sha(np).then(function(h){cfg.pw=h}):Promise.resolve()).then(function(){saveLocal();chrome();$("#ms").textContent="Saved in this browser."})};
- $("#dl").onclick=function(){sync();var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(cfg,null,1)],{type:"application/json"}));a.download="config.json";a.click()};
+ root.onchange=function(e){if(e.target.dataset.f==="s"){sync();cfg.games.forEach(function(x){if(x.s==="retired")x.u=""});cfg.execs.forEach(function(x){if(x.s==="red"){x.w="";x.d=""}});admin()}};
+ function prep(cb){sync();var np=$("#np").value;(np?sha(np).then(function(h){cfg.pw=h;$("#np").value=""}):Promise.resolve()).then(cb)}
+ $("#sv").onclick=function(){prep(function(){saveLocal();chrome();$("#ms").textContent="Saved in this browser."})};
+ $("#cc").onclick=function(){var b=this;prep(function(){var q=JSON.stringify(cfg,null,1),ok=function(){b.textContent="Copied ✓";setTimeout(function(){b.textContent="Copy config.json"},1800)};navigator.clipboard?navigator.clipboard.writeText(q).then(ok,function(){prompt("Copy:",q)}):prompt("Copy:",q)})};
+ $("#dl").onclick=function(){prep(function(){var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(cfg,null,1)],{type:"application/json"}));a.download="config.json";a.click()})};
  $("#rs").onclick=function(){localStorage.removeItem("kl_cfg");location.reload()};
  $("#lo").onclick=function(){sessionStorage.kl_adm="0";admin()};
 }
