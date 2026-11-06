@@ -10,22 +10,22 @@ var T={ /* tiny translation table; English is the fallback */
  pt:{dash:"Painel",tut:"Tutorial",games:"Jogos",exec:"Executores",copy:"© 2026 Kalmin. Todos os direitos reservados.",disc:"A Kalmin não é afiliada, endossada ou patrocinada pela Roblox Corporation. Roblox é marca registrada da Roblox Corporation.",com:"Comunidade",soc:"Social",leg:"Legal",terms:"Termos de Serviço",priv:"Política de Privacidade"}
 };
 var P="dash,tut,games,exec,copy,com,soc,leg,terms,priv,get,vis,mem,none".split(","),PK={
-es:"Panel|Tutorial|Juegos|Ejecutores|© 2026 Kalmin. Todos los derechos reservados.|Comunidad|Social|Legal|Términos de servicio|Política de privacidad|Obtener script|Visitantes del sitio|Miembros de Discord|No hay tutoriales disponibles por ahora.",
-fr:"Tableau de bord|Tutoriel|Jeux|Exécuteurs|© 2026 Kalmin. Tous droits réservés.|Communauté|Social|Légal|Conditions d'utilisation|Politique de confidentialité|Obtenir le script|Visiteurs du site|Membres Discord|Aucun tutoriel disponible pour le moment.",
-de:"Dashboard|Anleitung|Spiele|Executors|© 2026 Kalmin. Alle Rechte vorbehalten.|Community|Soziales|Rechtliches|Nutzungsbedingungen|Datenschutz|Skript holen|Website-Besucher|Discord-Mitglieder|Derzeit sind keine Anleitungen verfügbar.",
-pt:"Painel|Tutorial|Jogos|Executores|© 2026 Kalmin. Todos os direitos reservados.|Comunidade|Social|Legal|Termos de Serviço|Política de Privacidade|Obter script|Visitantes do site|Membros do Discord|Nenhum tutorial disponível no momento.",
-it:"Dashboard|Tutorial|Giochi|Executor|© 2026 Kalmin. Tutti i diritti riservati.|Community|Social|Legale|Termini di servizio|Informativa sulla privacy|Ottieni script|Visitatori del sito|Membri Discord|Nessun tutorial disponibile al momento.",
-nl:"Dashboard|Tutorial|Games|Executors|© 2026 Kalmin. Alle rechten voorbehouden.|Community|Social|Juridisch|Servicevoorwaarden|Privacybeleid|Script ophalen|Websitebezoekers|Discord-leden|Er zijn momenteel geen tutorials beschikbaar.",
+es:"Panel|Tutorial|Juegos|Ejecutores|© 2026 Kalmin. Todos los derechos reservados.|Comunidad|Social|Legal|Términos de servicio|Política de privacidad|Obtener script|Visitantes|Miembros de Discord|No hay tutoriales disponibles por ahora.",
+fr:"Tableau de bord|Tutoriel|Jeux|Exécuteurs|© 2026 Kalmin. Tous droits réservés.|Communauté|Social|Légal|Conditions d'utilisation|Politique de confidentialité|Obtenir le script|Visiteurs|Membres Discord|Aucun tutoriel disponible pour le moment.",
+de:"Dashboard|Anleitung|Spiele|Executors|© 2026 Kalmin. Alle Rechte vorbehalten.|Community|Soziales|Rechtliches|Nutzungsbedingungen|Datenschutz|Skript holen|Besucher|Discord-Mitglieder|Derzeit sind keine Anleitungen verfügbar.",
+pt:"Painel|Tutorial|Jogos|Executores|© 2026 Kalmin. Todos os direitos reservados.|Comunidade|Social|Legal|Termos de Serviço|Política de Privacidade|Obter script|Visitantes|Membros do Discord|Nenhum tutorial disponível no momento.",
+it:"Dashboard|Tutorial|Giochi|Executor|© 2026 Kalmin. Tutti i diritti riservati.|Community|Social|Legale|Termini di servizio|Informativa sulla privacy|Ottieni script|Visitatori|Membri Discord|Nessun tutorial disponibile al momento.",
+nl:"Dashboard|Tutorial|Games|Executors|© 2026 Kalmin. Alle rechten voorbehouden.|Community|Social|Juridisch|Servicevoorwaarden|Privacybeleid|Script ophalen|Bezoekers|Discord-leden|Er zijn momenteel geen tutorials beschikbaar.",
 pl:"Panel|Poradnik|Gry|Executory|© 2026 Kalmin. Wszelkie prawa zastrzeżone.|Społeczność|Social|Prawne|Regulamin|Polityka prywatności|Pobierz skrypt|Odwiedzający|Członkowie Discord|Brak dostępnych poradników.",
-tr:"Panel|Eğitim|Oyunlar|Executor'lar|© 2026 Kalmin. Tüm hakları saklıdır.|Topluluk|Sosyal|Yasal|Hizmet Şartları|Gizlilik Politikası|Script Al|Site ziyaretçileri|Discord üyeleri|Şu anda eğitim bulunmuyor.",
-ru:"Панель|Туториал|Игры|Экзекьюторы|© 2026 Kalmin. Все права защищены.|Сообщество|Соцсети|Правовая информация|Условия использования|Политика конфиденциальности|Получить скрипт|Посетители сайта|Участники Discord|Туториалов пока нет.",
-ar:"لوحة التحكم|الشرح|الألعاب|المنفذات|© 2026 Kalmin. جميع الحقوق محفوظة.|المجتمع|التواصل|قانوني|شروط الخدمة|سياسة الخصوصية|احصل على السكربت|زوار الموقع|أعضاء ديسكورد|لا توجد شروحات متاحة حاليًا.",
-hi:"डैशबोर्ड|ट्यूटोरियल|गेम्स|एक्ज़ीक्यूटर|© 2026 Kalmin. सर्वाधिकार सुरक्षित।|समुदाय|सोशल|कानूनी|सेवा की शर्तें|गोपनीयता नीति|स्क्रिप्ट पाएँ|साइट विज़िटर|डिस्कॉर्ड सदस्य|अभी कोई ट्यूटोरियल उपलब्ध नहीं है।",
-id:"Dasbor|Tutorial|Game|Executor|© 2026 Kalmin. Hak cipta dilindungi.|Komunitas|Sosial|Legal|Ketentuan Layanan|Kebijakan Privasi|Ambil Script|Pengunjung situs|Anggota Discord|Belum ada tutorial.",
+tr:"Panel|Eğitim|Oyunlar|Executor'lar|© 2026 Kalmin. Tüm hakları saklıdır.|Topluluk|Sosyal|Yasal|Hizmet Şartları|Gizlilik Politikası|Script Al|Ziyaretçiler|Discord üyeleri|Şu anda eğitim bulunmuyor.",
+ru:"Панель|Туториал|Игры|Экзекьюторы|© 2026 Kalmin. Все права защищены.|Сообщество|Соцсети|Правовая информация|Условия использования|Политика конфиденциальности|Получить скрипт|Посетители|Участники Discord|Туториалов пока нет.",
+ar:"لوحة التحكم|الشرح|الألعاب|المنفذات|© 2026 Kalmin. جميع الحقوق محفوظة.|المجتمع|التواصل|قانوني|شروط الخدمة|سياسة الخصوصية|احصل على السكربت|الزوار|أعضاء ديسكورد|لا توجد شروحات متاحة حاليًا.",
+hi:"डैशबोर्ड|ट्यूटोरियल|गेम्स|एक्ज़ीक्यूटर|© 2026 Kalmin. सर्वाधिकार सुरक्षित।|समुदाय|सोशल|कानूनी|सेवा की शर्तें|गोपनीयता नीति|स्क्रिप्ट पाएँ|विज़िटर|डिस्कॉर्ड सदस्य|अभी कोई ट्यूटोरियल उपलब्ध नहीं है।",
+id:"Dasbor|Tutorial|Game|Executor|© 2026 Kalmin. Hak cipta dilindungi.|Komunitas|Sosial|Legal|Ketentuan Layanan|Kebijakan Privasi|Ambil Script|Pengunjung|Anggota Discord|Belum ada tutorial.",
 vi:"Bảng điều khiển|Hướng dẫn|Trò chơi|Executor|© 2026 Kalmin. Bảo lưu mọi quyền.|Cộng đồng|Mạng xã hội|Pháp lý|Điều khoản dịch vụ|Chính sách quyền riêng tư|Lấy script|Lượt truy cập|Thành viên Discord|Hiện chưa có hướng dẫn nào.",
-ja:"ダッシュボード|チュートリアル|ゲーム|エグゼキューター|© 2026 Kalmin. All rights reserved.|コミュニティ|ソーシャル|法的情報|利用規約|プライバシーポリシー|スクリプトを取得|サイト訪問者|Discordメンバー|現在チュートリアルはありません。",
-ko:"대시보드|튜토리얼|게임|실행기|© 2026 Kalmin. 모든 권리 보유.|커뮤니티|소셜|법적 고지|이용약관|개인정보 처리방침|스크립트 받기|사이트 방문자|디스코드 멤버|현재 이용 가능한 튜토리얼이 없습니다.",
-zh:"控制台|教程|游戏|执行器|© 2026 Kalmin. 保留所有权利。|社区|社交|法律|服务条款|隐私政策|获取脚本|网站访客|Discord 成员|目前没有可用的教程。"};
+ja:"ダッシュボード|チュートリアル|ゲーム|エグゼキューター|© 2026 Kalmin. All rights reserved.|コミュニティ|ソーシャル|法的情報|利用規約|プライバシーポリシー|スクリプトを取得|訪問者|Discordメンバー|現在チュートリアルはありません。",
+ko:"대시보드|튜토리얼|게임|실행기|© 2026 Kalmin. 모든 권리 보유.|커뮤니티|소셜|법적 고지|이용약관|개인정보 처리방침|스크립트 받기|방문자|디스코드 멤버|현재 이용 가능한 튜토리얼이 없습니다.",
+zh:"控制台|教程|游戏|执行器|© 2026 Kalmin. 保留所有权利。|社区|社交|法律|服务条款|隐私政策|获取脚本|访客|Discord 成员|目前没有可用的教程。"};
 var LN={en:"English",es:"Español",fr:"Français",de:"Deutsch",pt:"Português",it:"Italiano",nl:"Nederlands",pl:"Polski",tr:"Türkçe",ru:"Русский",ar:"العربية",hi:"हिन्दी",id:"Indonesia",vi:"Tiếng Việt",ja:"日本語",ko:"한국어",zh:"中文"};
 Object.keys(PK).forEach(function(l){var v=PK[l].split("|");T[l]=T[l]||{};P.forEach(function(k,i){if(!(k in T[l]))T[l][k]=v[i]})});
 var lang=localStorage.getItem("kl_lang")||"en";if(!LN[lang])lang="en";
@@ -65,7 +65,10 @@ $("#theme").onclick=function(){setTheme(document.documentElement.dataset.theme==
 var ab=document.createElement("button"),tools=document.createElement("span");ab.className="ic";tools.className="tools";$("#theme").parentNode.insertBefore(tools,$("#theme"));tools.appendChild(ab);tools.appendChild($("#theme"));
 function setAnim(v){document.documentElement.classList.toggle("noanim",!v);ab.textContent=v?"✦":"✧";ab.setAttribute("aria-label",v?"Animations on":"Animations off");ab.title=v?"Animations: on":"Animations: off";try{localStorage.kl_anim=v?"1":"0"}catch(e){}}
 setAnim(localStorage.kl_anim!=="0");ab.onclick=function(){setAnim(document.documentElement.classList.contains("noanim"))};
-$("#burger").onclick=function(){var o=$("#links").classList.toggle("open");this.classList.toggle("open",o);this.setAttribute("aria-expanded",o)};
+var mt;function menu(o){var lk=$("#links"),bg=$("#burger");clearTimeout(mt);bg.setAttribute("aria-expanded",!!o);
+ if(o){lk.classList.remove("closing");lk.classList.add("open");bg.classList.add("open")}
+ else if(lk.classList.contains("open")){lk.classList.add("closing");bg.classList.remove("open");mt=setTimeout(function(){lk.classList.remove("open","closing")},260)}}
+$("#burger").onclick=function(){var lk=$("#links");menu(!lk.classList.contains("open")||lk.classList.contains("closing"))};
 $("#lang").innerHTML=Object.keys(LN).map(function(k){return '<option value="'+k+'">'+LN[k]+"</option>"}).join("");$("#lang").value=lang;
 $("#lang").onchange=function(){lang=this.value;localStorage.setItem("kl_lang",lang);chrome();route()};
 
@@ -83,7 +86,7 @@ var DI='<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria
 function joinHtml(){return '<section class="glass join"><div><div class="jt"><span class="dico">'+DI+'</span>Community</div><h3>Join the community.</h3><p>Updates, scripts, and support. All in one place.</p></div><a class="dbtn" href="'+esc(su(cfg.social.discord))+'" target="_blank" rel="noopener">'+DI+'Join the Discord</a></section>'}
 function dash(){
  app.innerHTML='<section class="glass hero"><h1>Kalmin <b>Hub</b></h1><h2>Go Beyond with <b>Kalmin</b>.</h2><div class="btns"><button class="btn p" id="gs">'+t("get","Get Script")+'</button><a class="btn" href="/tutorials" data-l>'+t("tut","Tutorial")+'</a></div></section>'+
- '<div class="grid"><div class="glass card"><div class="n" id="vc">—</div><small>'+t("vis","Website visitors")+'</small></div><div class="glass card"><div class="n" id="dc">—</div><small>'+t("mem","Discord members")+'</small></div></div>'+joinHtml();
+ '<div class="grid"><div class="glass card stat"><div class="n" id="vc">—</div><small>'+t("vis","Visitors")+'</small></div><div class="glass card stat"><div class="n" id="dc">—</div><small>'+t("mem","Discord members")+'</small></div></div>'+joinHtml();
  $("#gs").onclick=function(){
   var lv=!!cfg.lvId,ll=!!cfg.lootBase;
   function go(w){localStorage.kl_pend=Date.now();
@@ -192,13 +195,13 @@ function route(){
  var f=R[p]||dash;document.title=({"/games":"Games · ","/executers":"Executors · ","/tutorials":"Tutorials · ","/terms":"Terms · ","/privacy":"Privacy · ","/getscript":"Get Script · ","/adminpg":"Admin · "}[p]||"")+"Kalmin Hub";
  autoFn=null;
  document.querySelectorAll(".links a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")===p)});
- $("#links").classList.remove("open");$("#burger").classList.remove("open");$("#burger").setAttribute("aria-expanded","false");
+ menu(false);
  clearTimeout(rt);
  var go=function(){window.scrollTo(0,0);app.className="";void app.offsetWidth;app.className="page";f()};
  if(first||!app.firstChild||document.documentElement.classList.contains("noanim")){first=false;go()}
  else{app.className="out";rt=setTimeout(go,200)}
 }
-document.addEventListener("click",function(e){var a=e.target.closest("a[data-l]");if(a){e.preventDefault();var h=a.getAttribute("href"),np=function(x){return x.replace(/\/index\.html$/,"/").replace(/(.)\/$/,"$1")};if(np(h)===np(location.pathname)&&!location.search){$("#links").classList.remove("open");$("#burger").classList.remove("open");return}history.pushState(null,"",h);chrome();route()}});
+document.addEventListener("click",function(e){var a=e.target.closest("a[data-l]");if(a){e.preventDefault();var h=a.getAttribute("href"),np=function(x){return x.replace(/\/index\.html$/,"/").replace(/(.)\/$/,"$1")};if(np(h)===np(location.pathname)&&!location.search){menu(false);return}history.pushState(null,"",h);chrome();route()}});
 window.addEventListener("popstate",route);
 window.addEventListener("beforeunload",function(){autoFn&&autoFn(true)});
 window.addEventListener("pagehide",function(){autoFn&&autoFn(true)});

@@ -179,3 +179,19 @@ html.noanim *,html.noanim *::before,html.noanim *::after{animation:none!importan
 .dbtn:hover{transform:translateY(-3px) scale(1.03)}
 [data-theme=light] .dbtn{--e:#222;background:#111;color:#fff}
 [dir=rtl] .links{margin-left:0;margin-right:auto}
+
+/* v8 */
+.card.stat:hover{transform:none}
+.links.closing{animation:menuOut .25s ease both}
+@keyframes menuOut{to{opacity:0;transform:translateY(-8px)}}
+.ic:hover{transform:none;border-color:var(--edge)}
+@media(hover:hover){.ic:not(#burger):hover{transform:rotate(20deg);border-color:var(--acc)}}
+@media(pointer:coarse),(max-width:760px){.dbtn:hover,.ic:hover{transform:none}}
+#burger.open,#burger.open:hover{transform:rotate(90deg);border-color:var(--acc)}
+@media(max-width:760px) and (pointer:fine){
+ nav{flex-wrap:wrap;justify-content:center;border-radius:26px}
+ #burger{display:none}
+ .links{display:flex;flex-direction:row;flex-wrap:wrap;width:100%;justify-content:center;margin:0;align-items:center}
+ .links a{padding:8px 10px;font-size:.88rem}
+ .links .tools{margin:0 0 0 6px}
+}
