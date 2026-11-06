@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalmin Hub</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;500;700&display=swap" rel="stylesheet">
+<script src="https://js.hcaptcha.com/1/api.js?render=explicit" async defer></script>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+
+<div id="gate"><div class="glass">
+  <div class="brand"><img src="/favicon.png" alt=""><span>Kalmin <b>Hub</b></span></div>
+  <p>Please verify you are human to continue.</p>
+  <div id="hc" class="h-captcha"></div>
+</div></div>
+
+<nav class="glass">
+  <a class="brand" href="/" data-l><img src="/favicon.png" alt=""><span>Kalmin <b>Hub</b></span></a>
+  <button class="ic" id="burger" aria-label="Menu">☰</button>
+  <div class="links" id="links">
+    <a href="/" data-l data-k="dash">Dashboard</a>
+    <a href="/tutorials" data-l data-k="tut">Tutorial</a>
+    <a href="/games" data-l data-k="games">Games</a>
+    <a href="/executers" data-l data-k="exec">Executors</a>
+    <button class="ic" id="theme" aria-label="Toggle theme">☾</button>
+  </div>
+</nav>
+
+<main id="app"></main>
+
+<footer class="glass">
+  <div class="fc" id="fc"></div>
+  <div class="fb">
+    <p><span data-k="copy">© 2026 Kalmin. All rights reserved.</span><br><span data-k="disc">Kalmin is not affiliated with, endorsed by, or sponsored by Roblox Corporation. Roblox is a registered trademark of Roblox Corporation.</span></p>
+    <select id="lang" aria-label="Language"><option value="en">English</option><option value="es">Español</option><option value="fr">Français</option><option value="de">Deutsch</option><option value="pt">Português</option></select>
+  </div>
+</footer>
+
+<script src="/app.js"></script>
+</body>
+</html>
