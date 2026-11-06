@@ -160,7 +160,7 @@ function route(){
  $("#links").classList.remove("open");$("#burger").classList.remove("open");$("#burger").setAttribute("aria-expanded","false");
  clearTimeout(rt);
  var go=function(){window.scrollTo(0,0);app.className="";void app.offsetWidth;app.className="page";f()};
- if(first||!app.firstChild||matchMedia("(prefers-reduced-motion:reduce)").matches){first=false;go()}
+ if(first||!app.firstChild){first=false;go()}
  else{app.className="out";rt=setTimeout(go,200)}
 }
 document.addEventListener("click",function(e){var a=e.target.closest("a[data-l]");if(a){e.preventDefault();history.pushState(null,"",a.getAttribute("href"));chrome();route()}});

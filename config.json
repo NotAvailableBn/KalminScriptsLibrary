@@ -2,7 +2,7 @@
  "hcaptcha": "d8cc6b26-86f8-44ba-aec4-4be623165e40",
  "script": "loadstring(game:HttpGet(\"noscript\"))()",
  "lvId": "10419982",
- "verifyUrl": "a808009e3709474efb4ff407ec663f7a14b5ca3a29df104303b3346d6876660f",
+ "verifyUrl": "",
  "discordInvite": "u5XmnW6Vkq",
  "social": {
   "discord": "https://discord.gg/u5XmnW6Vkq",
