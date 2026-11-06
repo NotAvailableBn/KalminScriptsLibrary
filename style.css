@@ -111,3 +111,17 @@ input:disabled{opacity:.4}
  .fc{grid-template-columns:1fr 1fr}
  .btns .btn{flex:1 1 140px;text-align:center}
 }
+
+/* v3: burger rotate, stable page width */
+html{scrollbar-gutter:stable}
+#burger{transition:transform .3s ease,border-color .25s}
+#burger.open{transform:rotate(90deg);border-color:var(--acc)}
+
+/* v4: page transitions */
+#app.out{opacity:0;transform:translateY(-12px) scale(.99);transition:opacity .2s ease,transform .2s ease}
+.page{animation:pg .5s cubic-bezier(.2,.8,.2,1) both}
+.page>*{animation:pgc .6s cubic-bezier(.2,.8,.2,1) both}
+.page>*:nth-child(2){animation-delay:.07s}.page>*:nth-child(3){animation-delay:.14s}.page>*:nth-child(n+4){animation-delay:.2s}
+.list>*,.grid>*{animation:pgc .5s cubic-bezier(.2,.8,.2,1) both}
+.list>*:nth-child(1),.grid>*:nth-child(1){animation-delay:.1s}.list>*:nth-child(2),.grid>*:nth-child(2){animation-delay:.14s}.list>*:nth-child(3),.grid>*:nth-child(3){animation-delay:.18s}.list>*:nth-child(4){animation-delay:.22s}.list>*:nth-child(5){animation-delay:.26s}.list>*:nth-child(6){animation-delay:.3s}.list>*:nth-child(n+7){animation-delay:.34s}
+@keyframes pgc{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}

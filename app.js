@@ -2,7 +2,7 @@
 "use strict";
 /* ---------- default config (override with /config.json or the admin page) ---------- */
 var DEF={
- hcaptcha:"d8cc6b26-86f8-44ba-aec4-4be623165e40", /* paste your hCaptcha site key here or in /adminpg; empty = captcha gate is skipped */
+ hcaptcha:"", /* paste your hCaptcha site key here or in /adminpg; empty = captcha gate is skipped */
  script:'loadstring(game:HttpGet("https://kalmin.kdns.fr/script.lua"))()',
  lvId:"10419982",
  verifyUrl:"", /* optional: your server endpoint that checks the Linkvertise hash with the anti-bypass token */
@@ -42,7 +42,7 @@ function saveLocal(){localStorage.setItem("kl_cfg",JSON.stringify(cfg))}
 function setTheme(m){document.documentElement.dataset.theme=m;$("#theme").textContent=m==="dark"?"☾":"☀";localStorage.setItem("kl_theme",m)}
 setTheme(localStorage.getItem("kl_theme")||"dark");
 $("#theme").onclick=function(){setTheme(document.documentElement.dataset.theme==="dark"?"light":"dark")};
-$("#burger").onclick=function(){$("#links").classList.toggle("open")};
+$("#burger").onclick=function(){var o=$("#links").classList.toggle("open");this.classList.toggle("open",o);this.setAttribute("aria-expanded",o)};
 $("#lang").value=lang;
 $("#lang").onchange=function(){lang=this.value;localStorage.setItem("kl_lang",lang);chrome();route()};
 
@@ -151,12 +151,17 @@ function set(p,v){var a=p.split("."),o=cfg;while(a.length>1)o=o[a.shift()];o[a[0
 
 /* ---------- router ---------- */
 var R={"/":dash,"/tutorials":tuts,"/games":games,"/executers":execs,"/getscript":getscript,"/terms":function(){doc("terms","Terms Of Service")},"/privacy":function(){doc("privacy","Privacy Policy")},"/adminpg":admin};
+var rt,first=true;
 function route(){
  var p=location.pathname.replace(/\/index\.html$/,"/").replace(/(.)\/$/,"$1");
  var f=R[p]||dash;
- autoFn=null;app.className="";void app.offsetWidth;app.className="page";f();
+ autoFn=null;
  document.querySelectorAll(".links a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")===p)});
- $("#links").classList.remove("open");window.scrollTo(0,0);
+ $("#links").classList.remove("open");$("#burger").classList.remove("open");$("#burger").setAttribute("aria-expanded","false");
+ clearTimeout(rt);
+ var go=function(){window.scrollTo(0,0);app.className="";void app.offsetWidth;app.className="page";f()};
+ if(first||!app.firstChild||matchMedia("(prefers-reduced-motion:reduce)").matches){first=false;go()}
+ else{app.className="out";rt=setTimeout(go,200)}
 }
 document.addEventListener("click",function(e){var a=e.target.closest("a[data-l]");if(a){e.preventDefault();history.pushState(null,"",a.getAttribute("href"));chrome();route()}});
 window.addEventListener("popstate",route);
