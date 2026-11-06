@@ -2,7 +2,7 @@
 "use strict";
 /* ---------- default config (override with /config.json or the admin page) ---------- */
 var DEF={
- hcaptcha:"", /* paste your hCaptcha site key here or in /adminpg; empty = captcha gate is skipped */
+ hcaptcha:"d8cc6b26-86f8-44ba-aec4-4be623165e40", /* paste your hCaptcha site key here or in /adminpg; empty = captcha gate is skipped */
  script:'loadstring(game:HttpGet("https://kalmin.kdns.fr/script.lua"))()',
  lvId:"10419982",
  verifyUrl:"", /* optional: your server endpoint that checks the Linkvertise hash with the anti-bypass token */
