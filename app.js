@@ -227,6 +227,6 @@ function gate(){
 fetch("/config.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():{}}).catch(function(){return {}}).then(function(j){
  merge(cfg,j);
  try{var l=JSON.parse(localStorage.getItem("kl_cfg")||"null");if(l)merge(cfg,l)}catch(e){}
- savedSnap=JSON.stringify(cfg);chrome();route();gate();
+ savedSnap=JSON.stringify(cfg);chrome();route();gate();var wi=new Image();wi.onerror=function(){var l=document.querySelector("link[rel~=icon]");if(l)l.href="/favicon.png"};wi.src="/webicon.png";
 });
 })();

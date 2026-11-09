@@ -1,3 +1,4 @@
+
 :root{--bg:#0a0710;--ink:#fff;--soft:rgba(255,255,255,.68);--acc:#ff4d8d;--g1:rgba(255,255,255,.14);--g2:rgba(255,255,255,.03);--edge:rgba(255,255,255,.28);--hi:rgba(255,255,255,.55);--sh:rgba(0,0,0,.5);--dot:rgba(255,77,141,.5)}
 [data-theme=light]{--bg:#f3eef6;--ink:#1a1022;--soft:rgba(26,16,34,.68);--g1:rgba(255,255,255,.7);--g2:rgba(255,255,255,.25);--edge:rgba(255,255,255,.9);--hi:#fff;--sh:rgba(90,40,120,.22);--dot:rgba(255,77,141,.35)}
 *{box-sizing:border-box;margin:0}
@@ -195,3 +196,7 @@ html.noanim *,html.noanim *::before,html.noanim *::after{animation:none!importan
  .links a{padding:8px 10px;font-size:.88rem}
  .links .tools{margin:0 0 0 6px}
 }
+
+/* v9: menu button only on touch phones */
+#burger{display:none}
+@media(max-width:560px) and (pointer:coarse){#burger{display:grid;margin-left:auto}}
