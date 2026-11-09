@@ -189,15 +189,15 @@ function set(p,v){var a=p.split("."),o=cfg;while(a.length>1)o=o[a.shift()];o[a[0
 
 /* ---------- router ---------- */
 var R={"/":dash,"/tutorials":tuts,"/games":games,"/executers":execs,"/getscript":getscript,"/terms":function(){doc("terms","Terms Of Service")},"/privacy":function(){doc("privacy","Privacy Policy")},"/adminpg":admin};
-var rt,first=true;
+var rt,bt,first=true;
 function route(){
  var p=location.pathname.replace(/\/index\.html$/,"/").replace(/(.)\/$/,"$1");
  var f=R[p]||dash;document.title=({"/games":"Games · ","/executers":"Executors · ","/tutorials":"Tutorials · ","/terms":"Terms · ","/privacy":"Privacy · ","/getscript":"Get Script · ","/adminpg":"Admin · "}[p]||"")+"Kalmin Hub";
  autoFn=null;
  document.querySelectorAll(".links a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")===p)});
  menu(false);
- clearTimeout(rt);
- var go=function(){window.scrollTo(0,0);app.className="";void app.offsetWidth;app.className="page";f()};
+ clearTimeout(rt);clearTimeout(bt);document.documentElement.classList.add("busy");bt=setTimeout(function(){document.documentElement.classList.remove("busy")},1100);
+ var go=function(){window.scrollTo({top:0,left:0,behavior:"instant"});app.className="";void app.offsetWidth;app.className="page";f()};
  if(first||!app.firstChild||document.documentElement.classList.contains("noanim")){first=false;go()}
  else{app.className="out";rt=setTimeout(go,200)}
 }
